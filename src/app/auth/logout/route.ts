@@ -1,12 +1,15 @@
 import { supabase } from "@/app/lib/supabase"
-import { redirect } from "next/navigation";
+import { NextResponse } from "next/server";
 
-export const logout = async () => {
+export async function POST() {
     const { error } = await supabase.auth.signOut();
 
-    if (error) console.log(error)
+    if (error) {
+        console.log(error);
+        return NextResponse.error();
+    }
 
-    redirect("/")
+    return NextResponse.redirect("/");
 }
 
-export default logout;
+export default POST;
