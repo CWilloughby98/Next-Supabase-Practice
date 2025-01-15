@@ -1,7 +1,7 @@
 import { supabase } from "@/app/lib/supabase"
 import { redirect } from "next/navigation";
 
-const logout = async () => {
+export const logout = async () => {
     const { error } = await supabase.auth.signOut();
 
     if (error) console.log(error)
