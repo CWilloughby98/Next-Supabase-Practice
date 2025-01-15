@@ -1,12 +1,22 @@
 "use client"
-import { logout } from "./auth/logout/route";
-import { redirect } from "next/navigation";
+import { supabase } from "./lib/supabase";
+import { redirect, useRouter } from "next/navigation";
 import { useSession } from "./context/SessionContext";
 import "./globals.css"
 
 export default function Home() {
 
-  const { session } = useSession()
+  const { session, setSession } = useSession()
+  const router = useRouter()
+
+  const logout = async () => {
+    const { error } = await supabase.auth.signOut();
+
+    if (error) console.log(error)
+
+    setSession(null)
+    router.push("/");
+  }
   
   console.log(session)
 
