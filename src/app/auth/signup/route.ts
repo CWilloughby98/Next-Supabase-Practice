@@ -31,9 +31,10 @@ export async function POST(req: NextRequest) {
         return NextResponse.redirect(url.origin, {
             status: 301,
         });
-    } catch (error: any) {
-        console.error(error); // Log the error to the console
-        return NextResponse.redirect(`${url.origin}/auth/signup?error=${encodeURIComponent(error.message)}`, {
+    } catch (error: unknown) {
+        console.error(error);
+        const errorMessage = error instanceof Error ? error.message : 'Unknown error';
+        return NextResponse.redirect(`${url.origin}/auth/signup?error=${encodeURIComponent(errorMessage)}`, {
             status: 301,
         });
     }

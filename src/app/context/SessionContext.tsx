@@ -14,7 +14,7 @@ interface SessionContextType {
 const SessionContext = createContext<SessionContextType | null>(null);
 
 
-export const SessionProvider = ({ children }: any) => {
+export const SessionProvider = ({ children }: { children: React.ReactNode }) => {
     const [session, setSession] = useState<Session | null>(null)
 
     useEffect(() => {

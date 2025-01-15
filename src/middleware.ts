@@ -5,8 +5,7 @@ export async function middleware(req: NextRequest) {
     const res = NextResponse.next()
     const supabase = createMiddlewareClient({req, res})
 
-    const { 
-        data: { session }, 
+    const {  
         error 
     } = await supabase.auth.getSession()
 
@@ -19,7 +18,7 @@ export async function middleware(req: NextRequest) {
     // }
 
     //HERE ALSO WOULD GO A SESSION RESET FUNCTION?
-    
+
     return res
 }
 

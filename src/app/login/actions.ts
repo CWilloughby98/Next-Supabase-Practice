@@ -1,4 +1,3 @@
-
 import { redirect } from "next/navigation"
 import { supabase } from "../lib/supabase"
 
@@ -7,13 +6,14 @@ export const sendResetPassword = async (formData: FormData) => {
         const email = formData.get("reset")?.toString()
         if (!email) throw new Error("Email is required")
         
-        const { data: resetData, error } = await supabase.auth.resetPasswordForEmail(email, {
+        const { error } = await supabase.auth.resetPasswordForEmail(email, {
             redirectTo: `${window.location.origin}/reset`
         })
 
         if (error) console.log(error)
-    } catch (error: any) {
-        throw error
+    } catch (error) {
+        const typedError = error as Error;
+        throw typedError;
     }
 }
 
